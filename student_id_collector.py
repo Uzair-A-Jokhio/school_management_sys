@@ -5,15 +5,15 @@ student_data = {"name":[],
                 "phone":[],
                 }
 
-def student_id_collector(data):
+def add_student(data):
     '''  Collect student's name, age, phone 
     and store the data '''
 
-    x = 1 
+    x = 0 
     y = int(input("Total number of student: ")) # the total number of student 
 
     while x < y:
-        print(f"=== Student NO {x} ===")
+        print(f"====== Student NO {x+1} ======")
         # info details
         name = input("Enter your name: ")
         age = input("Enter your age: ")
@@ -25,7 +25,26 @@ def student_id_collector(data):
         
         x += 1
         
-    
+    print("----------------------------------------")
     return data 
 
 
+def display_student(data):
+    if data:
+        print("list of students: ")
+        for i, student in enumerate(data["name"]):
+            print(f"S.No: {i + 1} ")
+            print(f"Name: {student}")
+            print(f"Age: {data['age'][i]}")
+            print(f"Phone: {data['phone'][i]}")
+            print("----------------------------------------")
+    else:
+        print("No data in the system...")
+
+
+def main():
+    data = add_student(student_data)
+    display_student(data)
+
+if __name__ == "__main__":
+    main()
