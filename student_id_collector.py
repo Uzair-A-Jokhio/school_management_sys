@@ -42,9 +42,25 @@ def display_student(data):
         print("No data in the system...")
 
 
+
 def main():
-    data = add_student(student_data)
-    display_student(data)
+    while True:
+        print("\n Select the correct operator you want to perform (1, 2, etc..) to exit q\n")
+        print(" (1) Adding student info.. ")
+        print(" (2) Display information..  \n")
+        x = input("Operation: ")
+        info = student_data
+
+        if x == "q":
+            break
+
+        if x == "1":
+            info = add_student(info)
+            return info
+        
+
+
+
 
 if __name__ == "__main__":
     main()
