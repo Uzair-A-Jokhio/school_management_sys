@@ -44,11 +44,16 @@ def display_student(data):
 
 
 def main():
+
     while True:
-        print("\n Select the correct operator you want to perform (1, 2, etc..) to exit q\n")
+        print("\n Select the correct Operation you want to perform (1, 2, etc..) to exit q\n")
         print(" (1) Adding student info.. ")
         print(" (2) Display information..  \n")
+        
+        print("===========================")
         x = input("Operation: ")
+        print("===========================")
+
         info = student_data
 
         if x == "q":
@@ -56,7 +61,10 @@ def main():
 
         if x == "1":
             info = add_student(info)
-            return info
+        elif x == "2":
+            display_student(info)
+        else:
+            print("Invalid Operation")
         
 
 
