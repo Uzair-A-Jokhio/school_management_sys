@@ -1,3 +1,8 @@
-# School
+# School Management System
 
-This is a small project of school management system..
+This is a Project of school management system. Using Python language.
+
+* You can add Student inforamtion
+* View Student Informatiom 
+
+
