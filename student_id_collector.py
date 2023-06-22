@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+
 student_data = {"name":[],
                 "age":[],
                 "phone":[],
                 }
+
 
 def add_student(data):
     '''  Collect student's name, age, phone 
@@ -30,7 +32,7 @@ def add_student(data):
 
 
 def display_student(data):
-    if data:
+    if data :
         print("list of students: ")
         for i, student in enumerate(data["name"]):
             print(f"S.No: {i + 1} ")
@@ -42,13 +44,28 @@ def display_student(data):
         print("No data in the system...")
 
 
+def remove_student(data):
+    number = int(input("Enter the S.No of the Student to remove: "))
+    #
+    if number <= len(data["name"]):
+        index = number - 1
+        del data["name"][index]
+        del data["age"][index]
+        del data["phone"][index]
+        print("Student removed..")
+    else:
+        print("Student not found..")
+
+
+
 
 def main():
 
     while True:
         print("\n Select the correct Operation you want to perform (1, 2, etc..) to exit q\n")
         print(" (1) Adding student info.. ")
-        print(" (2) Display information..  \n")
+        print(" (2) Display information.. ")
+        print(" (3) Remove student..  ")
         
         print("===========================")
         x = input("Operation: ")
@@ -63,6 +80,8 @@ def main():
             info = add_student(info)
         elif x == "2":
             display_student(info)
+        elif x == "3":
+            remove_student(info)
         else:
             print("Invalid Operation")
         
