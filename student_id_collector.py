@@ -1,60 +1,32 @@
 #!/usr/bin/env python
 
-
-student_data = {"name":[],
-                "age":[],
-                "phone":[],
-                }
+import csv 
 
 
-def add_student(data):
+def add_student():
     '''  Collect student's name, age, phone 
-    and store the data '''
+    and store the data into the csv file.. '''
 
-    x = 0 
-    y = int(input("Total number of student: ")) # the total number of student 
+    #open csv file in write mode 
+    with open("data.csv", "w", newline='') as file:
 
-    while x < y:
-        print(f"====== Student NO {x+1} ======")
-        # info details
-        name = input("Enter your name: ")
-        age = input("Enter your age: ")
-        phone = input("Enter phone number: ")
-        # saving the data
-        data["name"].append(name)
-        data["age"].append(age)
-        data["phone"].append(phone)
-        
-        x += 1
-        
-    print("----------------------------------------")
-    return data 
+        write = csv.writer(file)
+        write.writerow(["Name", "Age", "Phone"]) 
+
+        x = int(input("Number of student to Enter: "))
+        for i in range(x):
+            print(f"----- student {i} -----")
+            name = input(" Name: ")
+            age = input(" Age: ")
+            
+
+        write.writerow([name,age])  #write data row
+
+    print("Data collection completed successfully. ")
 
 
-def display_student(data):
-    if data :
-        print("list of students: ")
-        for i, student in enumerate(data["name"]):
-            print(f"S.No: {i + 1} ")
-            print(f"Name: {student}")
-            print(f"Age: {data['age'][i]}")
-            print(f"Phone: {data['phone'][i]}")
-            print("----------------------------------------")
-    else:
-        print("No data in the system...")
+ 
 
-
-def remove_student(data):
-    number = int(input("Enter the S.No of the Student to remove: "))
-    #
-    if number <= len(data["name"]):
-        index = number - 1
-        del data["name"][index]
-        del data["age"][index]
-        del data["phone"][index]
-        print("Student removed..")
-    else:
-        print("Student not found..")
 
 
 
@@ -71,17 +43,13 @@ def main():
         x = input("Operation: ")
         print("===========================")
 
-        info = student_data
+        
 
         if x == "q":
             break
 
         if x == "1":
-            info = add_student(info)
-        elif x == "2":
-            display_student(info)
-        elif x == "3":
-            remove_student(info)
+            info = add_student()
         else:
             print("Invalid Operation")
         
