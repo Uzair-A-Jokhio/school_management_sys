@@ -12,18 +12,26 @@ def add_student():
 
         write = csv.writer(file)
         write.writerow(["Name", "Age", "Phone"]) 
+        #get the number of student
+        while True:
+                try:
+                    num_student = int(input("Number of student:  "))
+                    break               
+                except ValueError:
+                    print("Error: Not a valid number")
 
-        x = int(input("Number of student to Enter: "))
-        for i in range(x):
-            print(f"----- student {i} -----")
+        #collect the data    
+        for i in range(num_student):
+            print(f"----- student {i+1} -----")
             name = input(" Name: ")
             age = input(" Age: ")
-            
-
-        write.writerow([name,age])  #write data row
+            write.writerow([name,age])  #write data row
+                
 
     print("Data collection completed successfully. ")
 
+def display_data():
+    '''display'''
 
  
 
@@ -39,11 +47,9 @@ def main():
         print(" (2) Display information.. ")
         print(" (3) Remove student..  ")
         
-        print("===========================")
+        print("\n---------------------------")
         x = input("Operation: ")
-        print("===========================")
-
-        
+        print("---------------------------\n")
 
         if x == "q":
             break
@@ -53,9 +59,6 @@ def main():
         else:
             print("Invalid Operation")
         
-
-
-
 
 if __name__ == "__main__":
     main()
