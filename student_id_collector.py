@@ -9,7 +9,6 @@ def add_student():
 
     #open csv file in write mode 
     with open("data.csv", "w", newline='') as file:
-
         write = csv.writer(file)
         write.writerow(["Name", "Age", "Phone"]) 
         #get the number of student
@@ -30,24 +29,26 @@ def add_student():
 
     print("Data collection completed successfully. ")
 
+
 def display_data():
-    '''display'''
+    '''displays the data from the csv file'''
 
- 
-
-
-
+    with open("data.csv", "r", newline='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(row)
 
 
 def main():
 
     while True:
-        print("\n Select the correct Operation you want to perform (1, 2, etc..) to exit q\n")
-        print(" (1) Adding student info.. ")
-        print(" (2) Display information.. ")
-        print(" (3) Remove student..  ")
-        
-        print("\n---------------------------")
+
+        print("\nSelect the operation you want to perform:")
+        print("(1) Add student info")
+        print("(2) Display information")
+        print("Enter 'q' to exit")
+
+        print("---------------------------")
         x = input("Operation: ")
         print("---------------------------\n")
 
@@ -55,10 +56,12 @@ def main():
             break
 
         if x == "1":
-            info = add_student()
+            add_student()
+        elif x == "2":
+            display_data()
         else:
-            print("Invalid Operation")
-        
+            print("Invalid operation")
+
 
 if __name__ == "__main__":
     main()
