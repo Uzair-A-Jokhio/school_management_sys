@@ -1,92 +1,66 @@
 #!/usr/bin/env python
 
-
-student_data = {"name":[],
-                "age":[],
-                "phone":[],
-                }
+import csv 
 
 
-def add_student(data):
+def add_student():
     '''  Collect student's name, age, phone 
-    and store the data '''
+    and store the data into the csv file.. '''
 
-    x = 0 
-    y = int(input("Total number of student: ")) # the total number of student 
+    #open csv file in write mode 
+    with open("data.csv", "w", newline='') as file:
+        write = csv.writer(file)
+        write.writerow(["Name", "Age", "Phone"]) 
+        #get the number of student
+        while True:
+                try:
+                    num_student = int(input("Number of student:  "))
+                    break               
+                except ValueError:
+                    print("Error: Not a valid number")
 
-    while x < y:
-        print(f"====== Student NO {x+1} ======")
-        # info details
-        name = input("Enter your name: ")
-        age = input("Enter your age: ")
-        phone = input("Enter phone number: ")
-        # saving the data
-        data["name"].append(name)
-        data["age"].append(age)
-        data["phone"].append(phone)
-        
-        x += 1
-        
-    print("----------------------------------------")
-    return data 
+        #collect the data    
+        for i in range(num_student):
+            print(f"----- student {i+1} -----")
+            name = input(" Name: ")
+            age = input(" Age: ")
+            write.writerow([name,age])  #write data row
+                
 
-
-def display_student(data):
-    if data :
-        print("list of students: ")
-        for i, student in enumerate(data["name"]):
-            print(f"S.No: {i + 1} ")
-            print(f"Name: {student}")
-            print(f"Age: {data['age'][i]}")
-            print(f"Phone: {data['phone'][i]}")
-            print("----------------------------------------")
-    else:
-        print("No data in the system...")
+    print("Data collection completed successfully. ")
 
 
-def remove_student(data):
-    number = int(input("Enter the S.No of the Student to remove: "))
-    #
-    if number <= len(data["name"]):
-        index = number - 1
-        del data["name"][index]
-        del data["age"][index]
-        del data["phone"][index]
-        print("Student removed..")
-    else:
-        print("Student not found..")
+def display_data():
+    '''displays the data from the csv file'''
 
-
+    with open("data.csv", "r", newline='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(row)
 
 
 def main():
 
     while True:
-        print("\n Select the correct Operation you want to perform (1, 2, etc..) to exit q\n")
-        print(" (1) Adding student info.. ")
-        print(" (2) Display information.. ")
-        print(" (3) Remove student..  ")
-        
-        print("===========================")
-        x = input("Operation: ")
-        print("===========================")
 
-        info = student_data
+        print("\nSelect the operation you want to perform:")
+        print("(1) Add student info")
+        print("(2) Display information")
+        print("Enter 'q' to exit")
+
+        print("---------------------------")
+        x = input("Operation: ")
+        print("---------------------------\n")
 
         if x == "q":
             break
 
         if x == "1":
-            info = add_student(info)
+            add_student()
         elif x == "2":
-            display_student(info)
-        elif x == "3":
-            remove_student(info)
+            display_data()
         else:
-            print("Invalid Operation")
-        
-
-
+            print("Invalid operation")
 
 
 if __name__ == "__main__":
