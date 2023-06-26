@@ -10,7 +10,6 @@ def add_student():
     #open csv file in write mode 
     with open("data.csv", "a", newline='') as file:
         write = csv.writer(file)
-        write.writerow(["Name", "Age", "Phone"]) 
         #get the number of student
         while True:
                 try:
@@ -41,40 +40,36 @@ def display_data():
 
 
 def remove_data():
-    '''removes data from the csv file '''
+    '''Remove a row from the CSV file'''
+    rows = []
     with open("data.csv", "r", newline='') as file:
         reader = csv.reader(file)
-        data = list(reader)
-
-        # display data
-        print("Current Data: ")
-        display_data()
-
-        # getting the row number from user input
-        while True:
-            try:
-                row_number = int(input("Enter the row number to remove ( 0 to cancel )"))
-                if row_number == 0:
-                    print("Operation Cancelled")
-                    break
-                elif 1 <= row_number <= len(data):
-                    break
-                else:
-                    print("Invaild row number. Try again ")
-            except ValueError:
-                print("Invaild input. Please enter a vaild row number..")
+        rows = list(reader)
         
-        #remove the row
-        removed_data = data.pop(row_number - 1)
+    if not rows:
+        print("No rows to remove")
+        return
+    #display data
+    print("Current data:")
+    display_data()
+    #getting input from the user.
+    try:
+        row_number = int(input("Enter the row number to remove: "))
 
-        #modify the csv data 
-        with open("data.csv", "w", newline='') as file:
-            writer = csv.writer(file)
-            writer.writerow(data)
+        if row_number == 0:
+            print("Operation canceled.")
+            return
+        elif 1 <= row_number <= len(rows):  
+            rows.pop(row_number - 1)
 
-        print(f"Row {row_number} removed successfully ")
-        print(' | '.join(removed_data))
-
+            with open("data.csv", "w", newline='') as file:
+                writer = csv.writer(file)
+                writer.writerows(rows)
+            print("Row removed successfully")
+        else:
+            print("Invalid row number")
+    except ValueError:
+        print("Invaild input. Enter a valid row number")
 
 
 
