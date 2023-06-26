@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import csv 
+from tabulate import tabulate
 
 
 def add_student():
@@ -35,8 +36,13 @@ def display_data():
 
     with open("data.csv", "r", newline='') as file:
         reader = csv.reader(file)
-        for i, row in enumerate(reader, 1):
-            print(f"{i}. {' | '.join(row)}")
+        data = list(reader)
+        
+        # Generate a numbered list of rows
+        numbered_data = [[str(i)] + row for i, row in enumerate(data, 1)]
+
+        # Display the data using tabulate
+        print(tabulate(numbered_data, headers=["#", "Name", "Age", "Phone"], tablefmt="fancy_grid"))
 
 
 def remove_data():
@@ -54,8 +60,7 @@ def remove_data():
     display_data()
     #getting input from the user.
     try:
-        row_number = int(input("Enter the row number to remove: "))
-
+        row_number = int(input("Enter the row number to remove(0 to cancel): "))
         if row_number == 0:
             print("Operation canceled.")
             return
@@ -72,15 +77,55 @@ def remove_data():
         print("Invaild input. Enter a valid row number")
 
 
+def modify_data():
+    ''' modify a row in a csv file '''
+    
+    rows = []
+    with open("data.csv", 'r',newline='') as file:
+        reader = csv.reader(file)
+        rows = list(reader)
+
+    if not rows:
+        print("no row to modify")
+        return
+    
+    print("Current Data")
+    display_data()
+
+    try:
+        row_number = int(input("Enter the Row number (0 to cancel): "))
+
+        if 1 <= row_number <= len(rows):
+            name = input("Enter New Name: ")
+            age = input("Enter New Age: ")
+            phone = input("Enter New Phone: ")
+            rows[row_number -1] =[name,age,phone]
+
+            with open("data.csv","w",newline="") as file:
+                writer = csv.writer(file)
+                writer.writerows(rows)
+            print("\nRow modified successfully")
+
+        elif row_number == 0:
+            print("Operation cancelled. ")
+
+        else:
+            print("Invalid row number. ")
+
+    except ValueError:
+        print("Invalid row number Please try again ")
+
+
 
 def main():
 
     while True:
 
-        print("\nSelect the operation you want to perform:")
-        print("(1) Add student info")
-        print("(2) Display information")
-        print("(3) remove student")
+        print("\nSelect the operation you want to perform:\n")
+        print("(1) Add student infotmation\n")
+        print("(2) Display information\n")
+        print("(3) Remove student data\n")
+        print("(4) Modify student data\n")
         print("Enter 'q' to exit")
 
         print("---------------------------")
@@ -89,13 +134,14 @@ def main():
 
         if x == "q":
             break
-
         if x == "1":
             add_student()
         elif x == "2":
             display_data()
         elif x == "3":
             remove_data()
+        elif x == "4":
+            modify_data()
         else:
             print("Invalid operation")
 
