@@ -8,7 +8,7 @@ def add_student():
     and store the data into the csv file.. '''
 
     #open csv file in write mode 
-    with open("data.csv", "w", newline='') as file:
+    with open("data.csv", "a", newline='') as file:
         write = csv.writer(file)
         write.writerow(["Name", "Age", "Phone"]) 
         #get the number of student
@@ -24,7 +24,8 @@ def add_student():
             print(f"----- student {i+1} -----")
             name = input(" Name: ")
             age = input(" Age: ")
-            write.writerow([name,age])  #write data row
+            phone = input(" Phone: ")
+            write.writerow([name,age,phone])  #write data row
                 
 
     print("Data collection completed successfully. ")
@@ -37,6 +38,8 @@ def display_data():
         reader = csv.reader(file)
         for row in reader:
             print(row)
+
+
 
 
 def main():
