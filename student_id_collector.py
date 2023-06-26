@@ -32,12 +32,48 @@ def add_student():
 
 
 def display_data():
-    '''displays the data from the csv file'''
+    '''Display the data from the csv file'''
 
     with open("data.csv", "r", newline='') as file:
         reader = csv.reader(file)
-        for row in reader:
-            print(row)
+        for i, row in enumerate(reader, 1):
+            print(f"{i}. {' | '.join(row)}")
+
+
+def remove_data():
+    '''removes data from the csv file '''
+    with open("data.csv", "r", newline='') as file:
+        reader = csv.reader(file)
+        data = list(reader)
+
+        # display data
+        print("Current Data: ")
+        display_data()
+
+        # getting the row number from user input
+        while True:
+            try:
+                row_number = int(input("Enter the row number to remove ( 0 to cancel )"))
+                if row_number == 0:
+                    print("Operation Cancelled")
+                    break
+                elif 1 <= row_number <= len(data):
+                    break
+                else:
+                    print("Invaild row number. Try again ")
+            except ValueError:
+                print("Invaild input. Please enter a vaild row number..")
+        
+        #remove the row
+        removed_data = data.pop(row_number - 1)
+
+        #modify the csv data 
+        with open("data.csv", "w", newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(data)
+
+        print(f"Row {row_number} removed successfully ")
+        print(' | '.join(removed_data))
 
 
 
@@ -49,6 +85,7 @@ def main():
         print("\nSelect the operation you want to perform:")
         print("(1) Add student info")
         print("(2) Display information")
+        print("(3) remove student")
         print("Enter 'q' to exit")
 
         print("---------------------------")
@@ -62,6 +99,8 @@ def main():
             add_student()
         elif x == "2":
             display_data()
+        elif x == "3":
+            remove_data()
         else:
             print("Invalid operation")
 
